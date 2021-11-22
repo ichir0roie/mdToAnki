@@ -13,14 +13,20 @@ for filePath in files:
 
     items = text.split("# ")[1:]
 
-    with open(filePath.replace(pathImport, pathExport), mode="w", encoding="utf-8")as f:
-        print(filePath.replace(pathImport, pathExport))
+    exportPath = filePath.replace(pathImport, pathExport)
+    exportPath = exportPath.replace("md", "txt")
+
+    with open(exportPath, mode="w", encoding="utf-8")as f:
+
         for item in items:
             item = item.replace("\n\n", "\n")
             front = item.split("\n")[0]  # type:str
             backLines = item.split("\n")[1:]
 
-            text = front+"\t"+backLines[0]
+            text = front+"\t"
+
+            if len(backLines) > 0:
+                text += backLines[0]
             for back in backLines[1:]:
                 if len(back) <= 0:
                     continue
